@@ -9,6 +9,6 @@ export class ApiService {
   constructor (private http:HttpClient) {}
 
   getRandomData() {
-    return this.http.get('https://randomuser.me/api/?results=50')
+    return this.http.get('https://randomuser.me/api/?results=90')
   }
 }
