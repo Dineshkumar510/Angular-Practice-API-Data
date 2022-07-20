@@ -2,9 +2,9 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-8">
-                    <span (click)="getData()">
-                        <h1 class="m-2" style="cursor: pointer; color:aliceblue">Employee Details</h1>
-                    </span>
+                    <div class="content">
+                        <h1 class="m-2" style="color:aliceblue">Employee Details</h1>
+                    </div>
                 </div>
                 <div class="col-md-4">
                         <div class="d-flex m-3" style="float: right;">
@@ -26,13 +26,14 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-4" [attr.data-index]="i" *ngFor="let data of RandomData?.results | appFilter:searchText; let i = index">
-                                <div style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                <div style="cursor: pointer;" (click)="open(content)">
                                     <span class="m-1">{{i + 1}}.</span>
+
                                     <img style= "border-radius: 5%; width:80px; margin:10px; cursor:pointer" class="image" 
                                     id="myImg" src={{data.picture?.large}} alt="picture" placement="top" ngbTooltip={{data.location.country}}>
-                                    <span class="m-1">{{data.name.title}}.</span>
-                                    <span class="m-1">{{data.name.first}}</span>
-                                    <span class="m-0">{{data.name.last}}</span>
+                            
+                                    <span class="m-1">{{data.name.title}}. {{data.name.first}} {{data.name.last}}</span>
+                                   
                                 </div>
                                 <hr>
                             </div>
@@ -45,21 +46,24 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Employee Details</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-
-        <div class="modal-body">
-            
-        </div> 
-
-      </div>
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Employee Details</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
     </div>
-  </div>
+    <div class="modal-body">
+        <div class="container-fluid">
+            <div class="row" style="overflow-y: scroll; width:fit-content; height:500px">
+                <div class="col-md-12" [attr.data-index]="int" *ngFor="let data of RandomData?.results; let int = index">
+                    <span class="m-1">{{int + 1}}.</span>
+                    <span class="m-1">{{data.name.title}}. {{data.name.first}} {{data.name.last}}</span>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    
+  </ng-template>
   
 
 <ngx-spinner></ngx-spinner>
